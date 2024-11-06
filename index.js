@@ -28,7 +28,7 @@ const runQuery = async (query, values = []) => {
 };
 
 
-app.post("", async (req, res) => {
+app.post("/", async (req, res) => {
     const { name, age, job_title, company } = req.body;
 
 
@@ -49,7 +49,7 @@ app.post("", async (req, res) => {
 });
 
 
-app.get("", async (req, res) => {
+app.get("/", async (req, res) => {
     try {
         const result = await runQuery("SELECT * FROM data_diri");
         res.status(200).send({ success: true, data: result.rows });
