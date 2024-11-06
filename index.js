@@ -33,7 +33,7 @@ app.post("", async (req, res) => {
 
 
     if (!name || !age || !job_title || !company) {
-        return res.status(400).json({ error: "All fields are required" });
+        return res.status(400).send({ error: "All fields are required" });
     }
 
     try {
@@ -41,10 +41,10 @@ app.post("", async (req, res) => {
         const values = [name, age, job_title, company];
         const result = await runQuery(query, values);
 
-        res.status(201).json({ status: 201, message: "Data berhasil ditambahkan", data: result.rows[0] });
+        res.status(201).send({ success: true, message: "Data berhasil ditambahkan", data: result.rows[0] });
     } catch (error) {
         console.error("Error inserting data:", error);
-        res.status(500).json({ error: "Failed to create data" });
+        res.status(500).send({ error: "Failed to create data" });
     }
 });
 
@@ -52,10 +52,10 @@ app.post("", async (req, res) => {
 app.get("", async (req, res) => {
     try {
         const result = await runQuery("SELECT * FROM data_diri");
-        res.status(200).json({ status: 200, data: result.rows });
+        res.status(200).send({ success: true, data: result.rows });
     } catch (error) {
         console.error("Error fetching data:", error);
-        res.status(500).json({ error: "Failed to fetch data" });
+        res.status(500).send({ error: "Failed to fetch data" });
     }
 });
 
@@ -66,12 +66,12 @@ app.get("/:id", async (req, res) => {
     try {
         const result = await runQuery("SELECT * FROM data_diri WHERE id = $1", [id]);
         if (result.rows.length === 0) {
-            return res.status(404).json({ error: "Data tidak ditemukan" });
+            return res.status(404).send({ error: "Data tidak ditemukan" });
         }
-        res.status(200).json({ status: 200, data: result.rows[0] });
+        res.status(200).send({ success: true, data: result.rows[0] });
     } catch (error) {
         console.error("Error fetching data by ID:", error);
-        res.status(500).json({ error: "Failed to fetch data" });
+        res.status(500).send({ error: "Failed to fetch data" });
     }
 });
 
@@ -82,7 +82,7 @@ app.put("/:id", async (req, res) => {
 
 
     if (!name || !age || !job_title || !company) {
-        return res.status(400).json({ error: "All fields are required" });
+        return res.status(400).send({ error: "All fields are required" });
     }
 
     try {
@@ -91,13 +91,13 @@ app.put("/:id", async (req, res) => {
         const result = await runQuery(query, values);
 
         if (result.rows.length === 0) {
-            return res.status(404).json({ error: "Data tidak ditemukan" });
+            return res.status(404).send({ error: "Data tidak ditemukan" });
         }
 
-        res.status(200).json({ status: 200, message: "Data berhasil diupdate", data: result.rows[0] });
+        res.status(200).send({ success: true, message: "Data berhasil diupdate", data: result.rows[0] });
     } catch (error) {
         console.error("Error updating data:", error);
-        res.status(500).json({ error: "Failed to update data" });
+        res.status(500).send({ error: "Failed to update data" });
     }
 });
 
@@ -110,13 +110,13 @@ app.delete("/:id", async (req, res) => {
         const result = await runQuery(query, [id]);
 
         if (result.rows.length === 0) {
-            return res.status(404).json({ error: "Data tidak ditemukan" });
+            return res.status(404).send({ error: "Data tidak ditemukan" });
         }
 
-        res.status(200).json({ status: 200, message: "Data berhasil dihapus", deleted: result.rows[0] });
+        res.status(200).send({ success: true, message: "Data berhasil dihapus", deleted: result.rows[0] });
     } catch (error) {
         console.error("Error deleting data:", error);
-        res.status(500).json({ error: "Failed to delete data" });
+        res.status(500).send({ error: "Failed to delete data" });
     }
 });
 
