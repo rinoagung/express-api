@@ -54,7 +54,7 @@ app.get("/", async (req, res) => {
         res.status(200).send({ success: true, data: result.rows });
     } catch (error) {
         console.error("Error fetching data:", error);
-        res.status(500).send({ error: "Failed to fetch data" });
+        res.status(500).send({ error: "Failed to fetch data", message: error });
     }
 });
 
