@@ -31,7 +31,6 @@ const runQuery = async (query, values = []) => {
 app.post("/", async (req, res) => {
     const { name, age, job_title, company } = req.body;
 
-
     if (!name || !age || !job_title || !company) {
         return res.status(400).send({ error: "All fields are required" });
     }
