@@ -68,7 +68,7 @@ app.get("/:id", async (req, res) => {
     const { id } = req.params;
 
     try {
-        const result = await runQuery("SELECT * FROM data_diri WHERE id = $1", [id]);
+        const result = await runQuery("SELECT name, age, job_title, company FROM data_diri WHERE id = $1", [id]);
         if (result.rows.length === 0) {
             return res.status(404).send({ error: "Data tidak ditemukan" });
         }
