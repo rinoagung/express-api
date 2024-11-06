@@ -10,12 +10,17 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
+// local
+// const dbConfig = {
+//     user: process.env.POSTGRES_USERNAME,
+//     host: process.env.POSTGRES_HOST,
+//     database: process.env.POSTGRES_DATABASE,
+//     password: process.env.POSTGRES_PASSWORD,
+//     port: process.env.POSTGRES_PORT,
+// };
+
 const dbConfig = {
-    user: process.env.POSTGRES_USERNAME,
-    host: process.env.POSTGRES_HOST,
-    database: process.env.POSTGRES_DATABASE,
-    password: process.env.POSTGRES_PASSWORD,
-    port: process.env.POSTGRES_PORT,
+    connectionString: process.env.POSTGRES_URL,
 };
 
 
