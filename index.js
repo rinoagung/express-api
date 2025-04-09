@@ -35,6 +35,7 @@ const dbConfig = {
     connectionString: process.env.POSTGRES_URL,
 };
 
+// TEST GIT BRANCH
 
 const runQuery = async (query, values = []) => {
     const client = new Client(dbConfig);
