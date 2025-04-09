@@ -1,10 +1,22 @@
 const express = require("express");
 const { Client } = require("pg");
+const rateLimit = require('express-rate-limit');
+const csrf = require('csurf');
+
 require("dotenv").config();
 
 const app = express();
 const port = 3000;
+const csrfProtection = csrf({ cookie: true });
 
+// Membatasi permintaan API ke 100 permintaan per 15 menit
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,  // 15 menit
+    max: 100,
+    message: 'Too many requests, please try again later.'
+});
+
+app.use(limiter);
 app.use(express.json());
 
 
